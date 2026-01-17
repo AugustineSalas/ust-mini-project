@@ -59,9 +59,6 @@ if page == "Dashboard":
         low_stock_count = len(get_low_stock())
         st.metric("Low Stock Items", low_stock_count, delta_color="inverse" if low_stock_count > 0 else "normal")
 
-    # st.subheader("Recent Activity")
-    # st.info("Transaction history visualization coming soon.")
-
 # --- Vendors ---
 elif page == "Vendors":
     st.header("Vendor Management")
@@ -184,15 +181,6 @@ elif page == "Transactions":
         with st.form("transaction_form"):
             st.subheader("New Transaction")
             product_sel = st.selectbox("Select Product", products, format_func=lambda x: f"{x['name']} (Stock: {x['quantity']})")
-            
-            # Auto-select vendor based on product (but allow override if system allows, though our model links product to one vendor)
-            # Actually, the transaction model requires vendor_id. Usually, you buy a product from its defined vendor.
-            # Or if this is a SALE, the customer is buying.
-            # Our current model: Transaction has product_id AND vendor_id.
-            # If we are restocking, we buy FROM vendor.
-            # If we are selling, who is the vendor? 
-            # Reviewing models.py: Transaction(product_id, vendor_id, quantity, total_cost).
-            # It seems simplified. Let's assume for now we are just tracking "movement" linked to the product's vendor.
             
             quantity = st.number_input("Quantity (Positive for Restock, Negative for Sale)", step=1)
             

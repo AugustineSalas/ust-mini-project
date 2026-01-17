@@ -39,7 +39,7 @@ class Transaction(Base):
     vendor_id = Column(Integer, ForeignKey("vendors.id"))
     quantity = Column(Integer)  # Positive for restock, could be negative for sales if extended
     total_cost = Column(Float)
-    timestamp = Column(DateTime, default=datetime.utcnow)######################
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
     product = relationship("Product", back_populates="transactions")

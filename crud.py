@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-#from sqlalchemy.exc import IntegrityError
 import models, schemas
 
 # --- Vendor CRUD ---

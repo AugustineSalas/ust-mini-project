@@ -53,16 +53,6 @@ async def restore_data(file: UploadFile = File(...), db: Session = Depends(datab
         
         # Restore Vendors
         for v_data in data.get("vendors", []):
-            # check if exists to avoid unique constraint errors if preserving IDs
-            # Simple approach: Create new if ID not present, or update?
-            # Simplest for this demo: Ignore ID and create new (but that breaks relations)
-            # Better: Merge logic. here we will just re-insert and let DB handle ID if we drop it,
-            # but we want to keep relationships.
-            
-            # Strategy: We assume the database is empty or we are appending.
-            # If we want to restore exact IDs, we need to be careful.
-            
-            # Let's try to merge if ID exists, else create.
             existing = db.query(models.Vendor).filter(models.Vendor.id == v_data['id']).first()
             if not existing:
                 vendor = models.Vendor(**v_data)
@@ -81,12 +71,8 @@ async def restore_data(file: UploadFile = File(...), db: Session = Depends(datab
 
         # Restore Transactions
         for t_data in data.get("transactions", []):
-             # basic datetime parsing if needed, but SQLA might handle string ISO
-             # checks...
              existing = db.query(models.Transaction).filter(models.Transaction.id == t_data['id']).first()
              if not existing:
-                 # t_data['timestamp'] is a string, we might need to parse it if SQLA doesn't auto-convert
-                 # but usually JSON->API->SQLA works if configured. Let's assume standard ISO.
                  trans = models.Transaction(**t_data)
                  # fix timestamp if it's a string
                  from datetime import datetime
