@@ -196,7 +196,7 @@ elif page == "Transactions":
                     else:
                         payload = {
                             "product_id": product_sel['id'],
-                            "vendor_id": product_sel['vendor_id'], # Use product's default vendor
+                            "vendor_id": product_sel['vendor_id'],
                             "quantity": quantity
                         }
                         

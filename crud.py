@@ -65,7 +65,7 @@ def delete_product(db: Session, product_id: int):
 
 # --- Transaction CRUD ---
 def create_transaction(db: Session, transaction: schemas.TransactionCreate):
-    # Calculate total cost based on product price
+
     product = get_product(db, transaction.product_id)
     if not product:
         return None
@@ -80,14 +80,13 @@ def create_transaction(db: Session, transaction: schemas.TransactionCreate):
     )
     db.add(db_transaction)
     
-    # Update product inventory
     product.quantity += transaction.quantity
     
     db.commit()
     db.refresh(db_transaction)
     return db_transaction
 
-def get_transactions(db: Session, skip: int = 0, limit: int = 100): #EDITED
+def get_transactions(db: Session, skip: int = 0, limit: int = 100):
     return (
         db.query(models.Transaction).filter(models.Transaction.product_id.isnot(None)).offset(skip).limit(limit).all()
     )

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 
 # --- Vendor Schemas ---
@@ -13,7 +13,6 @@ class VendorCreate(VendorBase):
 
 class Vendor(VendorBase):
     id: int
-    # We will use this to embed products if needed, but keeping it simple for now
     class Config:
         orm_mode = True
 
@@ -38,9 +37,6 @@ class TransactionBase(BaseModel):
     product_id: int
     vendor_id: int
     quantity: int
-
-class TransactionCreate(TransactionBase):
-    pass
 
 class Transaction(TransactionBase):
     id: int
