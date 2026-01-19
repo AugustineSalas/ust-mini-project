@@ -38,6 +38,9 @@ class TransactionBase(BaseModel):
     vendor_id: int
     quantity: int
 
+class TransactionCreate(TransactionBase):
+    pass
+
 class Transaction(TransactionBase):
     id: int
     total_cost: float

@@ -72,7 +72,6 @@ elif page == "Vendors":
             
             st.dataframe(df[['id', 'name', 'contact_email', 'phone']], use_container_width=True)
             
-            # Delete Vendor
             st.subheader("Delete Vendor")
             vendor_to_delete = st.selectbox("Select Vendor to Delete", vendors, format_func=lambda x: f"{x['name']} (ID: {x['id']})")
             if st.button("Delete Vendor"):
