@@ -1,11 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
 
 # --- Vendor Schemas ---
 class VendorBase(BaseModel):
     name: str
-    contact_email: str
+    contact_email: EmailStr
     phone: str
 
 class VendorCreate(VendorBase):

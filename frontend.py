@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime
+from time import sleep
 
 # --- Configuration ---
 API_URL = "http://127.0.0.1:8000"
@@ -79,6 +80,8 @@ elif page == "Vendors":
                     res = requests.delete(f"{API_URL}/vendors/{vendor_to_delete['id']}")
                     if res.status_code == 200:
                         st.success("Vendor deleted successfully!")
+                        sleep(1)
+                        st.rerun()
                     else:
                         st.error("Failed to delete vendor.")
                 except Exception as e:
@@ -99,6 +102,8 @@ elif page == "Vendors":
                     res = requests.post(f"{API_URL}/vendors/", json=payload)
                     if res.status_code == 200:
                         st.success(f"Vendor '{name}' added!")
+                        sleep(1)
+                        st.rerun()
                     else:
                         st.error("Failed to add vendor.")
                 else:
@@ -135,6 +140,8 @@ elif page == "Products":
                     res = requests.delete(f"{API_URL}/products/{products_to_delete['id']}")
                     if res.status_code == 200:
                         st.success("Product deleted successfully!")
+                        sleep(1)
+                        st.rerun()
                     else:
                         st.error("Failed to delete product.")
                 except Exception as e:
@@ -164,6 +171,8 @@ elif page == "Products":
                     res = requests.post(f"{API_URL}/products/", json=payload)
                     if res.status_code == 200:
                         st.success(f"Product '{name}' added!")
+                        sleep(1)
+                        st.rerun()
                     else:
                         st.error("Failed to add product.")
         else:
@@ -203,6 +212,8 @@ elif page == "Transactions":
                         if res.status_code == 200:
                             st.success("Transaction recorded successfully!")
                             st.info(f"New Stock Level: {product_sel['quantity'] + quantity}")
+                            sleep(2)
+                            st.rerun()
                         else:
                             st.error(f"Transaction failed: {res.text}")
         
