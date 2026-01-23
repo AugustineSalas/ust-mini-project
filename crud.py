@@ -32,7 +32,7 @@ def get_product(db: Session, product_id: int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
 
 def get_products(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Product).offset(skip).limit(limit).all()
+    return db.query(models.Product).filter(models.Product.vendor_id.isnot(None)).offset(skip).limit(limit).all()
 
 def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(
